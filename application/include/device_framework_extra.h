@@ -1,0 +1,62 @@
+#ifndef DEVICE_FRAMEWORK_EXTRA_H
+#define DEVICE_FRAMEWORK_EXTRA_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define FUNCTION_ERASE          (1UL)
+#define FUNCTION_PROGRAM        (2UL)
+#define FUNCTION_VERIFY         (3UL)
+
+#define SUCCESS                 (0)
+#define ERROR                   (1)
+
+#define PROGRAM_SIZE            (8UL)
+#define ERASE_SIZE              (1024UL)
+
+#define FLASH_BANK1_BASE        (0x08000000UL)
+#define FLASH_BANK1_SIZE        (0x00080000UL)
+#define FLASH_BANK1_END         (FLASH_BANK1_BASE + FLASH_BANK1_SIZE - 0x1UL)
+#define FLASH_BANK1_LAST_ERASE_UNIT \
+    (FLASH_BANK1_BASE + FLASH_BANK1_SIZE - ERASE_SIZE)
+#define FLASH_BANK1_LAST_PROGRAM_UNIT \
+    (FLASH_BANK1_BASE + FLASH_BANK1_SIZE - PROGRAM_SIZE)
+#define FLASH_BANK2_BASE        (0x08080000UL)
+#define FLASH_BANK2_SIZE        (0x00080000UL)
+#define FLASH_BANK2_END         (FLASH_BANK2_BASE + FLASH_BANK2_SIZE - 0x1UL)
+#define FLASH_BANK2_LAST_ERASE_UNIT \
+    (FLASH_BANK2_BASE + FLASH_BANK2_SIZE - ERASE_SIZE)
+#define FLASH_BANK2_LAST_PROGRAM_UNIT \
+    (FLASH_BANK2_BASE + FLASH_BANK2_SIZE - PROGRAM_SIZE)
+#define ITCM_BASE               (0x00000000UL)
+#define ITCM_SIZE               (0x00020000UL)
+#define ITCM_END                (ITCM_BASE + ITCM_SIZE - 0x1UL)
+#define ITCM_LAST_ERASE_UNIT    (ITCM_BASE + ITCM_SIZE - ERASE_SIZE)
+#define ITCM_LAST_PROGRAM_UNIT  (ITCM_BASE + ITCM_SIZE - PROGRAM_SIZE)
+#define DTCM_BASE               (0x20000000UL)
+#define DTCM_SIZE               (0x00020000UL)
+#define DTCM_END                (DTCM_BASE + DTCM_SIZE - 0x1UL)
+#define DTCM_LAST_ERASE_UNIT    (DTCM_BASE + DTCM_SIZE - ERASE_SIZE)
+#define DTCM_LAST_PROGRAM_UNIT  (DTCM_BASE + DTCM_SIZE - PROGRAM_SIZE)
+#define SRAM1_BASE              (0x20100000UL)
+#define SRAM1_SIZE              (0x00020000UL)
+#define SRAM1_END               (SRAM1_BASE + SRAM1_SIZE - 0x1UL)
+#define SRAM1_LAST_ERASE_UNIT   (SRAM1_BASE + SRAM1_SIZE - ERASE_SIZE)
+#define SRAM1_LAST_PROGRAM_UNIT (SRAM1_BASE + SRAM1_SIZE - PROGRAM_SIZE)
+#define SRAM2_BASE              (0x20120000UL)
+#define SRAM2_SIZE              (0x00020000UL)
+#define SRAM2_END               (SRAM2_BASE + SRAM2_SIZE - 0x1UL)
+#define SRAM2_LAST_ERASE_UNIT   (SRAM2_BASE + SRAM2_SIZE - ERASE_SIZE)
+#define SRAM2_LAST_PROGRAM_UNIT (SRAM2_BASE + SRAM2_SIZE - PROGRAM_SIZE)
+
+#define FMC_KEY1                (0x45670123UL)
+#define FMC_KEY2                (0xCDEF89ABUL)
+
+#define ALIGN(SIZE, BASE)       (((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* DEVICE_FRAMEWORK_EXTRA_H */
