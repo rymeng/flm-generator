@@ -5,7 +5,7 @@
 
 uint32_t __init(uint32_t address, uint32_t function)
 {
-    int ret = RESULT_OK;
+    uint32_t ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) && (address <= FLASH_BANK1_END)) {
         if ((function == FUNCTION_ERASE) || (function == FUNCTION_PROGRAM)) {
@@ -50,7 +50,7 @@ uint32_t __init(uint32_t address, uint32_t function)
 
 uint32_t __deinit(uint32_t function)
 {
-    int ret = RESULT_OK;
+    uint32_t ret = RESULT_OK;
 
     if ((function == FUNCTION_ERASE) || (function == FUNCTION_PROGRAM)) {
         /* Lock FMC 1 & FMC 2 */
@@ -70,7 +70,7 @@ uint32_t __deinit(uint32_t function)
 
 uint32_t __erase_bank(void)
 {
-    int ret = RESULT_OK;
+    uint32_t ret = RESULT_OK;
 
     /* Unlock FMC 1 */
     FLASH->BANK1KR.reg = FMC_KEY1;
@@ -138,7 +138,7 @@ uint32_t __erase_bank(void)
 
 uint32_t __erase_sector(uint32_t address)
 {
-    int ret = RESULT_OK;
+    uint32_t ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) &&
         (address <= FLASH_BANK1_LAST_ERASE_UNIT)) {
@@ -245,7 +245,7 @@ uint32_t __erase_sector(uint32_t address)
 
 uint32_t __program(uint32_t address, uint32_t size, uint8_t *buffer)
 {
-    int ret = RESULT_OK;
+    uint32_t ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) &&
         (address <= FLASH_BANK1_LAST_PROGRAM_UNIT)) {
