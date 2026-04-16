@@ -390,9 +390,14 @@
               <FilePath>..\..\application\src\device_algorithm.c</FilePath>
             </File>
             <File>
-              <FileName>device_information.c</FileName>
+              <FileName>device_info.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\application\src\device_information.c</FilePath>
+              <FilePath>..\..\application\src\device_info.c</FilePath>
+            </File>
+            <File>
+              <FileName>framework.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\application\src\framework.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -405,5 +410,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>flash-loader</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

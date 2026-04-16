@@ -1,16 +1,11 @@
-#ifndef DEVICE_FRAMEWORK_EXTRA_H
-#define DEVICE_FRAMEWORK_EXTRA_H
+#ifndef DEVICE_ALGORITHM_H
+#define DEVICE_ALGORITHM_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define FUNCTION_ERASE          (1UL)
-#define FUNCTION_PROGRAM        (2UL)
-#define FUNCTION_VERIFY         (3UL)
-
-#define SUCCESS                 (0)
-#define ERROR                   (1)
+#include <stdint.h>
 
 #define PROGRAM_SIZE            (8UL)
 #define ERASE_SIZE              (1024UL)
@@ -53,10 +48,15 @@ extern "C" {
 #define FMC_KEY1                (0x45670123UL)
 #define FMC_KEY2                (0xCDEF89ABUL)
 
-#define ALIGN(SIZE, BASE)       (((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
+extern int __init(uint32_t address, uint32_t function);
+extern int __deinit(uint32_t function);
+extern int __erase_bank(void);
+extern int __erase_sector(uint32_t address);
+extern int __program(uint32_t address, uint32_t size, uint8_t *buffer);
+extern uint32_t __verify(uint32_t address, uint32_t size, uint8_t *buffer);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* DEVICE_FRAMEWORK_EXTRA_H */
+#endif /* DEVICE_ALGORITHM_H */

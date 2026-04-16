@@ -1,17 +1,11 @@
-#include <stdint.h>
-#include <string.h>
-#include "device_framework.h"
-#include "device_framework_extra.h"
+#include "framework.h"
+
+#include "device_algorithm.h"
 #include "rt32f7.h"
 
-int Init(unsigned long address,
-         unsigned long clock,
-	     unsigned long function)
+int __init(uint32_t address, uint32_t function)
 {
     int ret = SUCCESS;
-
-    /* Only for old version uVision debugger */
-    (void)clock;
 
     if ((address >= FLASH_BANK1_BASE) && (address <= FLASH_BANK1_END)) {
         if ((function == FUNCTION_ERASE) || (function == FUNCTION_PROGRAM)) {
@@ -54,7 +48,7 @@ int Init(unsigned long address,
     return ret;
 }
 
-int UnInit(unsigned long function)
+int __deinit(uint32_t function)
 {
     int ret = SUCCESS;
 
@@ -74,7 +68,7 @@ int UnInit(unsigned long function)
     return ret;
 }
 
-int EraseChip(void)
+int __erase_bank(void)
 {
     int ret = SUCCESS;
 
@@ -142,7 +136,7 @@ int EraseChip(void)
     return ret;
 }
 
-int EraseSector(unsigned long address)
+int __erase_sector(uint32_t address)
 {
     int ret = SUCCESS;
 
@@ -249,9 +243,7 @@ int EraseSector(unsigned long address)
     return ret;
 }
 
-int ProgramPage(unsigned long address,
-                unsigned long size,
-                unsigned char *buffer)
+int __program(uint32_t address, uint32_t size, uint8_t *buffer)
 {
     int ret = SUCCESS;
 
@@ -358,9 +350,7 @@ int ProgramPage(unsigned long address,
     return ret;
 }
 
-unsigned long Verify(unsigned long address,
-                     unsigned long size,
-                     unsigned char *buffer)
+uint32_t __verify(uint32_t address, uint32_t size, uint8_t *buffer)
 {
     /* Byte-by-byte verify */
     for (unsigned long i = 0UL; i < size; ++i) {

@@ -1,14 +1,14 @@
 PRG 0 PI {
-  PrgCode +0 {
-    * (+RO)
-  }
-  PrgData +0 {
-    * (+RW,+ZI)
-  }
+    PrgCode +0 {
+        * (+RO)
+    }
+    PrgData +0 {
+        * (+RW,+ZI)
+    }
 }
 
 DSCR +0 {
-  DevDscr +0 {
-    device_information.o
-  }
+    DevDscr +0 {
+        device_info.o
+    }
 }
