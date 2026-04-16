@@ -10,7 +10,9 @@ int Init(
     /* Only for old version uVision debugger */
     (void)clock;
 
-    uint32_t ret = __init((uint32_t)address, (uint32_t)function);
+    uint32_t ret = __init(
+        (uint32_t)address,
+        (uint32_t)function);
 
     return (int)ret;
 }
@@ -41,7 +43,10 @@ int ProgramPage(
     unsigned long size,
     unsigned char *buffer)
 {
-    uint32_t ret = __program((uint32_t)address, (uint32_t)size, (uint8_t *)buffer);
+    uint32_t ret = __program(
+        (uint32_t)address,
+        (uint32_t)size,
+        (uint8_t *)buffer);
 
     return (int)ret;
 }
@@ -51,7 +56,10 @@ unsigned long Verify(
     unsigned long size,
     unsigned char *buffer)
 {
-    int ret = __verify((uint32_t)address, (uint32_t)size, (uint8_t *)buffer);
+    uint32_t ret = __verify(
+        (uint32_t)address,
+        (uint32_t)size,
+        (uint8_t *)buffer);
 
-    return ret;
+    return (unsigned long)ret;
 }
