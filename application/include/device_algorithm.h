@@ -48,11 +48,11 @@ extern "C" {
 #define FMC_KEY1                (0x45670123UL)
 #define FMC_KEY2                (0xCDEF89ABUL)
 
-extern int __init(uint32_t address, uint32_t function);
-extern int __deinit(uint32_t function);
-extern int __erase_bank(void);
-extern int __erase_sector(uint32_t address);
-extern int __program(uint32_t address, uint32_t size, uint8_t *buffer);
+extern uint32_t __init(uint32_t address, uint32_t function);
+extern uint32_t __deinit(uint32_t function);
+extern uint32_t __erase_bank(void);
+extern uint32_t __erase_sector(uint32_t address);
+extern uint32_t __program(uint32_t address, uint32_t size, uint8_t *buffer);
 extern uint32_t __verify(uint32_t address, uint32_t size, uint8_t *buffer);
 
 #ifdef __cplusplus

@@ -3,9 +3,9 @@
 #include "device_algorithm.h"
 #include "rt32f7.h"
 
-int __init(uint32_t address, uint32_t function)
+uint32_t __init(uint32_t address, uint32_t function)
 {
-    int ret = SUCCESS;
+    int ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) && (address <= FLASH_BANK1_END)) {
         if ((function == FUNCTION_ERASE) || (function == FUNCTION_PROGRAM)) {
@@ -17,7 +17,7 @@ int __init(uint32_t address, uint32_t function)
 
             /* Check FMC 1 lock status */
             if (FLASH->BANK1CR.reg & FLASH_BANK1CR_LOCK_Msk) {
-                ret = ERROR;
+                ret = RESULT_ERROR;
             }
         }
     } else if ((address >= FLASH_BANK2_BASE) && (address <= FLASH_BANK2_END)) {
@@ -30,7 +30,7 @@ int __init(uint32_t address, uint32_t function)
 
             /* Check FMC 2 lock status */
             if (FLASH->BANK2CR.reg & FLASH_BANK2CR_LOCK_Msk) {
-                ret = ERROR;
+                ret = RESULT_ERROR;
             }
         }
     } else if ((address >= ITCM_BASE) && (address <= ITCM_END)) {
@@ -42,15 +42,15 @@ int __init(uint32_t address, uint32_t function)
     } else if ((address >= SRAM2_BASE) && (address <= SRAM2_END)) {
         ;
     } else {
-        ret = ERROR;
+        ret = RESULT_ERROR;
     }
 
     return ret;
 }
 
-int __deinit(uint32_t function)
+uint32_t __deinit(uint32_t function)
 {
-    int ret = SUCCESS;
+    int ret = RESULT_OK;
 
     if ((function == FUNCTION_ERASE) || (function == FUNCTION_PROGRAM)) {
         /* Lock FMC 1 & FMC 2 */
@@ -61,16 +61,16 @@ int __deinit(uint32_t function)
         /* Check FMC 1 & FMC 2 lock status */
         if (!(FLASH->BANK1CR.reg & FLASH_BANK1CR_LOCK_Msk) ||
             !(FLASH->BANK2CR.reg & FLASH_BANK2CR_LOCK_Msk)) {
-            ret = ERROR;
+            ret = RESULT_ERROR;
         }
     }
 
     return ret;
 }
 
-int __erase_bank(void)
+uint32_t __erase_bank(void)
 {
-    int ret = SUCCESS;
+    int ret = RESULT_OK;
 
     /* Unlock FMC 1 */
     FLASH->BANK1KR.reg = FMC_KEY1;
@@ -121,7 +121,7 @@ int __erase_bank(void)
         FLASH->BANK1SR.reg |= FLASH_BANK1SR_EOP_Msk;
         __DSB();
     } else {
-        ret = ERROR;
+        ret = RESULT_ERROR;
     }
 
     /* Check FMC 2 EOP flag */
@@ -130,15 +130,15 @@ int __erase_bank(void)
         FLASH->BANK2SR.reg |= FLASH_BANK2SR_EOP_Msk;
         __DSB();
     } else {
-        ret = ERROR;
+        ret = RESULT_ERROR;
     }
 
     return ret;
 }
 
-int __erase_sector(uint32_t address)
+uint32_t __erase_sector(uint32_t address)
 {
-    int ret = SUCCESS;
+    int ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) &&
         (address <= FLASH_BANK1_LAST_ERASE_UNIT)) {
@@ -176,7 +176,7 @@ int __erase_sector(uint32_t address)
             FLASH->BANK1SR.reg |= FLASH_BANK1SR_EOP_Msk;
             __DSB();
         } else {
-            ret = ERROR;
+            ret = RESULT_ERROR;
         }
     } else if ((address >= FLASH_BANK2_BASE) &&
                (address <= FLASH_BANK2_LAST_ERASE_UNIT)) {
@@ -214,7 +214,7 @@ int __erase_sector(uint32_t address)
             FLASH->BANK2SR.reg |= FLASH_BANK2SR_EOP_Msk;
             __DSB();
         } else {
-            ret = ERROR;
+            ret = RESULT_ERROR;
         }
     } else if ((address >= ITCM_BASE) &&
                (address <= ITCM_LAST_ERASE_UNIT)) {
@@ -237,15 +237,15 @@ int __erase_sector(uint32_t address)
             *(volatile unsigned int *)(address + i) = 0xFFFFFFFFUL;
         }
     } else {
-        ret = ERROR;
+        ret = RESULT_ERROR;
     }
 
     return ret;
 }
 
-int __program(uint32_t address, uint32_t size, uint8_t *buffer)
+uint32_t __program(uint32_t address, uint32_t size, uint8_t *buffer)
 {
-    int ret = SUCCESS;
+    int ret = RESULT_OK;
 
     if ((address >= FLASH_BANK1_BASE) &&
         (address <= FLASH_BANK1_LAST_PROGRAM_UNIT)) {
@@ -283,7 +283,7 @@ int __program(uint32_t address, uint32_t size, uint8_t *buffer)
             FLASH->BANK1SR.reg |= FLASH_BANK1SR_EOP_Msk;
             __DSB();
         } else {
-            ret = ERROR;
+            ret = RESULT_ERROR;
         }
     } else if ((address >= FLASH_BANK2_BASE) &&
                (address <= FLASH_BANK2_LAST_PROGRAM_UNIT)) {
@@ -321,7 +321,7 @@ int __program(uint32_t address, uint32_t size, uint8_t *buffer)
             FLASH->BANK2SR.reg |= FLASH_BANK2SR_EOP_Msk;
             __DSB();
         } else {
-            ret = ERROR;
+            ret = RESULT_ERROR;
         }
     } else if ((address >= ITCM_BASE) &&
                (address <= ITCM_LAST_PROGRAM_UNIT)) {
@@ -344,7 +344,7 @@ int __program(uint32_t address, uint32_t size, uint8_t *buffer)
             *(volatile unsigned char *)(address + i) = *(buffer + i);
         }
     } else {
-        ret = ERROR;
+        ret = RESULT_ERROR;
     }
 
     return ret;

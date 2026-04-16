@@ -14,8 +14,8 @@ extern "C" {
 #define FUNCTION_PROGRAM            (2UL)
 #define FUNCTION_VERIFY             (3UL)
 
-#define SUCCESS                     (0)
-#define ERROR                       (1)
+#define RESULT_OK                   (0UL)
+#define RESULT_ERROR                (1UL)
 
 #define UNKNOWN_DEVICE              (0U)
 #define ONCHIP_DEVICE               (1U)

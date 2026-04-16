@@ -10,30 +10,30 @@ int Init(
     /* Only for old version uVision debugger */
     (void)clock;
 
-    int ret = __init((uint32_t)address, (uint32_t)function);
+    uint32_t ret = __init((uint32_t)address, (uint32_t)function);
 
-    return ret;
+    return (int)ret;
 }
 
 int UnInit(unsigned long function)
 {
-    int ret = __deinit((uint32_t)function);
+    uint32_t ret = __deinit((uint32_t)function);
 
-    return ret;
+    return (int)ret;
 }
 
 int EraseChip(void)
 {
-    int ret = __erase_bank();
+    uint32_t ret = __erase_bank();
 
-    return ret;
+    return (int)ret;
 }
 
 int EraseSector(unsigned long address)
 {
-    int ret = __erase_sector((uint32_t)address);
+    uint32_t ret = __erase_sector((uint32_t)address);
 
-    return ret;
+    return (int)ret;
 }
 
 int ProgramPage(
@@ -41,9 +41,9 @@ int ProgramPage(
     unsigned long size,
     unsigned char *buffer)
 {
-    int ret = __program((uint32_t)address, (uint32_t)size, (uint8_t *)buffer);
+    uint32_t ret = __program((uint32_t)address, (uint32_t)size, (uint8_t *)buffer);
 
-    return ret;
+    return (int)ret;
 }
 
 unsigned long Verify(
