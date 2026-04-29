@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\application\include;..\..\drivers\cmsis\core\include;..\..\drivers\cmsis\device\include</IncludePath>
+              <IncludePath>..\..\application\include;..\..\drivers\bsp\include;..\..\drivers\cmsis\core\include;..\..\drivers\cmsis\device\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -385,19 +385,24 @@
           <GroupName>application</GroupName>
           <Files>
             <File>
-              <FileName>device_algorithm.c</FileName>
+              <FileName>algorithm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\application\src\device_algorithm.c</FilePath>
-            </File>
-            <File>
-              <FileName>device_info.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\application\src\device_info.c</FilePath>
+              <FilePath>..\..\application\src\algorithm.c</FilePath>
             </File>
             <File>
               <FileName>framework.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\application\src\framework.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>drivers/bsp</GroupName>
+          <Files>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\drivers\bsp\src\board.c</FilePath>
             </File>
           </Files>
         </Group>

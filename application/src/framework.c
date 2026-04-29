@@ -1,65 +1,158 @@
 #include "framework.h"
 
-#include "device_algorithm.h"
+/* Import functions for erasure or programming */
+#include "algorithm.h"
 
-int Init(
-    unsigned long address,
-    unsigned long clock,
-	unsigned long function)
+/* Import functions for debug */
+#ifdef DEBUG
+#include "board.h"
+#endif /* DEBUG */
+
+__attribute__((section(".descriptor")))
+const struct mem_region_descriptor FlashDevice = {
+    .framework_version      = FRAMEWORK_VERSION,
+    .name                   = "RT32F7",
+    .type                   = ONCHIP_DEVICE,
+    .address                = FLASH_BANK1_MAIN_BLOCK_BASE_ADDR,
+    .size                   = FLASH_BANK1_MAIN_BLOCK_SIZE,
+    .program_chunk_size     = PROGRAM_CHUNK_SIZE,
+    .__reserved             = 0UL,
+    .erased_byte            = 0xFFU,
+    .program_timeout        = PROGRAM_TIMEOUT,
+    .erase_timeout          = ERASE_TIMEOUT,
+    .sector_descriptor_list = {
+        { .size = ERASE_SIZE, .offset = 0x0UL },
+        SECTOR_DESCRIPTOR_LIST_END_SYMBOL
+    }
+};
+
+int Init(unsigned long address, unsigned long clock, unsigned long function)
 {
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: Init().\r\n");
+    printf("address = 0x%08lX.\r\n", address);
+    printf("clock = 0x%08lX.\r\n", clock);
+    printf("function = 0x%08lX.\r\n", function);
+#endif /* DEBUG */
+
     /* Only for old version uVision debugger */
     (void)clock;
 
-    uint32_t ret = __init(
-        (uint32_t)address,
-        (uint32_t)function);
+    uint32_t ret = __mem_region_init((uint32_t)address, (uint32_t)function);
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: Init(). ");
+    printf("Return status = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (int)ret;
 }
 
 int UnInit(unsigned long function)
 {
-    uint32_t ret = __deinit((uint32_t)function);
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: UnInit().\r\n");
+#endif /* DEBUG */
+
+    uint32_t ret = __mem_region_deinit((uint32_t)function);
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: UnInit(). ");
+    printf("Return status = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (int)ret;
 }
 
 int EraseChip(void)
 {
-    uint32_t ret = __erase_bank();
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: EraseChip().\r\n");
+#endif /* DEBUG */
+
+    uint32_t ret =  __mem_region_erase_bank();
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: EraseChip(). ");
+    printf("Return status = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (int)ret;
 }
 
 int EraseSector(unsigned long address)
 {
-    uint32_t ret = __erase_sector((uint32_t)address);
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: EraseSector().\r\n");
+    printf("address = 0x%08lX.\r\n", address);
+#endif /* DEBUG */
+
+    uint32_t ret = __mem_region_erase_sector((uint32_t)address);
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: EraseSector(). ");
+    printf("Return status = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (int)ret;
 }
 
-int ProgramPage(
-    unsigned long address,
-    unsigned long size,
-    unsigned char *buffer)
+int ProgramPage(unsigned long address, unsigned long size,
+                unsigned char *buffer)
 {
-    uint32_t ret = __program(
-        (uint32_t)address,
-        (uint32_t)size,
-        (uint8_t *)buffer);
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: ProgramPage().\r\n");
+    printf("address = 0x%08lX.\r\n", address);
+    printf("size = 0x%08lX.\r\n", size);
+    printf("buffer = 0x%08X.\r\n", (uint32_t)buffer);
+#endif /* DEBUG */
+
+    uint32_t ret = __mem_region_program((uint32_t)address, (uint32_t)size,
+                                        (uint8_t *)buffer);
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: ProgramPage(). ");
+    printf("Return status = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (int)ret;
 }
 
-unsigned long Verify(
-    unsigned long address,
-    unsigned long size,
-    unsigned char *buffer)
+unsigned long Verify(unsigned long address, unsigned long size,
+                     unsigned char *buffer)
 {
-    uint32_t ret = __verify(
-        (uint32_t)address,
-        (uint32_t)size,
-        (uint8_t *)buffer);
+#ifdef DEBUG
+    board_uart_init();
+    printf("Enter function: Verify().\r\n");
+    printf("address = 0x%08lX.\r\n", address);
+    printf("size = 0x%08lX.\r\n", size);
+    printf("buffer = 0x%08X.\r\n", (uint32_t)buffer);
+#endif /* DEBUG */
+
+    uint32_t ret = __mem_region_verify((uint32_t)address, (uint32_t)size,
+                                       (uint8_t *)buffer);
+
+#ifdef DEBUG
+    board_uart_init();
+    printf("Exit function: Verify(). ");
+    printf("Return address = 0x%08X.\r\n", ret);
+    printf("\r\n");
+#endif /* DEBUG */
 
     return (unsigned long)ret;
 }

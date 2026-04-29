@@ -3,10 +3,12 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
+
+/* Do not need any system layer function */
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* SYSTEM_RT32F7_H */

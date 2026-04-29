@@ -3,39 +3,40 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 #include <stdint.h>
 #include <string.h>
 
-#define FRAMEWORK_VERSION           (0x0101U)
+#define FRAMEWORK_VERSION                    (0x0101U)
 
-#define FUNCTION_ERASE              (1UL)
-#define FUNCTION_PROGRAM            (2UL)
-#define FUNCTION_VERIFY             (3UL)
+#define FUNCTION_ERASE                       (1UL)
+#define FUNCTION_PROGRAM                     (2UL)
+#define FUNCTION_VERIFY                      (3UL)
 
-#define RESULT_OK                   (0UL)
-#define RESULT_ERROR                (1UL)
+#define RESULT_OK                            (0UL)
+#define RESULT_ERROR                         (1UL)
 
-#define UNKNOWN_DEVICE              (0U)
-#define ONCHIP_DEVICE               (1U)
-#define EXTERN_8BIT_DEVICE          (2U)
-#define EXTERN_16BIT_DEVICE         (3U)
-#define EXTERN_32BIT_DEVICE         (4U)
-#define EXTERN_SPI_DEVICE           (5U)
+#define UNKNOWN_DEVICE                       (0U)
+#define ONCHIP_DEVICE                        (1U)
+#define EXTERN_8BIT_DEVICE                   (2U)
+#define EXTERN_16BIT_DEVICE                  (3U)
+#define EXTERN_32BIT_DEVICE                  (4U)
+#define EXTERN_SPI_DEVICE                    (5U)
 
-#define SECTOR_TYPE_MAX_NUMBER      (512U)
-#define SECTOR_TYPE_LIST_END_SYMBOL {0xFFFFFFFFUL, 0xFFFFFFFFUL}
+#define SECTOR_DESCRIPTOR_MAX_NUMBER         (512U)
+#define SECTOR_DESCRIPTOR_LIST_END_SYMBOL    {0xFFFFFFFFUL, 0xFFFFFFFFUL}
 
-#define ALIGN(SIZE, BASE)           (((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
+#define ALIGN(SIZE, BASE) \
+    (((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
 
-struct sector_type_info
+struct mem_region_sector_descriptor
 {
     uint32_t size;
     uint32_t offset;
 };
 
-struct default_device_information
+struct mem_region_descriptor
 {
     uint16_t framework_version;
     char name[128];
@@ -43,11 +44,12 @@ struct default_device_information
     uint32_t address;
     uint32_t size;
     uint32_t program_chunk_size;
-    uint32_t reserved;
+    uint32_t __reserved;
     uint8_t erased_byte;
     uint32_t program_timeout;
     uint32_t erase_timeout;
-    struct sector_type_info sector_type_list[SECTOR_TYPE_MAX_NUMBER];
+    struct mem_region_sector_descriptor
+        sector_descriptor_list[SECTOR_DESCRIPTOR_MAX_NUMBER];
 };
 
 extern int Init(
@@ -68,6 +70,6 @@ extern unsigned long Verify(
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* FRAMEWORK_H */
