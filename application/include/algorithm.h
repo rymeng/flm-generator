@@ -114,6 +114,14 @@ extern "C" {
 #define FMC_KEY1                                         (0x45670123UL)
 #define FMC_KEY2                                         (0xCDEF89ABUL)
 
+enum flash_latency {
+    FLASH_LATENCY_0_WAIT_STATE = 0,
+    FLASH_LATENCY_1_WAIT_STATE = 1,
+    FLASH_LATENCY_2_WAIT_STATE = 2,
+    FLASH_LATENCY_3_WAIT_STATE = 3,
+    FLASH_LATENCY_4_WAIT_STATE = 4
+};
+
 extern uint32_t __mem_region_init(uint32_t address, uint32_t function);
 extern uint32_t __mem_region_deinit(uint32_t function);
 extern uint32_t __mem_region_erase_bank(void);
