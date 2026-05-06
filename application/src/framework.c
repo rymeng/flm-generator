@@ -30,6 +30,9 @@ int Init(unsigned long address, unsigned long clock, unsigned long function)
 {
 #ifdef DEBUG
     board_uart_init();
+#endif /* DEBUG */
+
+#ifdef DEBUG
     printf("Enter function: Init().\r\n");
     printf("address = 0x%08lX.\r\n", address);
     printf("clock = 0x%08lX.\r\n", clock);
@@ -42,7 +45,6 @@ int Init(unsigned long address, unsigned long clock, unsigned long function)
     uint32_t ret = __mem_region_init((uint32_t)address, (uint32_t)function);
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: Init(). ");
     printf("Return status = 0x%08X.\r\n", ret);
     printf("\r\n");
@@ -54,17 +56,19 @@ int Init(unsigned long address, unsigned long clock, unsigned long function)
 int UnInit(unsigned long function)
 {
 #ifdef DEBUG
-    board_uart_init();
     printf("Enter function: UnInit().\r\n");
 #endif /* DEBUG */
 
     uint32_t ret = __mem_region_deinit((uint32_t)function);
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: UnInit(). ");
     printf("Return status = 0x%08X.\r\n", ret);
     printf("\r\n");
+#endif /* DEBUG */
+
+#ifdef DEBUG
+    board_uart_deinit();
 #endif /* DEBUG */
 
     return (int)ret;
@@ -73,14 +77,12 @@ int UnInit(unsigned long function)
 int EraseChip(void)
 {
 #ifdef DEBUG
-    board_uart_init();
     printf("Enter function: EraseChip().\r\n");
 #endif /* DEBUG */
 
     uint32_t ret =  __mem_region_erase_bank();
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: EraseChip(). ");
     printf("Return status = 0x%08X.\r\n", ret);
     printf("\r\n");
@@ -92,7 +94,6 @@ int EraseChip(void)
 int EraseSector(unsigned long address)
 {
 #ifdef DEBUG
-    board_uart_init();
     printf("Enter function: EraseSector().\r\n");
     printf("address = 0x%08lX.\r\n", address);
 #endif /* DEBUG */
@@ -100,7 +101,6 @@ int EraseSector(unsigned long address)
     uint32_t ret = __mem_region_erase_sector((uint32_t)address);
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: EraseSector(). ");
     printf("Return status = 0x%08X.\r\n", ret);
     printf("\r\n");
@@ -113,7 +113,6 @@ int ProgramPage(unsigned long address, unsigned long size,
                 unsigned char *buffer)
 {
 #ifdef DEBUG
-    board_uart_init();
     printf("Enter function: ProgramPage().\r\n");
     printf("address = 0x%08lX.\r\n", address);
     printf("size = 0x%08lX.\r\n", size);
@@ -124,7 +123,6 @@ int ProgramPage(unsigned long address, unsigned long size,
                                         (uint8_t *)buffer);
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: ProgramPage(). ");
     printf("Return status = 0x%08X.\r\n", ret);
     printf("\r\n");
@@ -137,7 +135,6 @@ unsigned long Verify(unsigned long address, unsigned long size,
                      unsigned char *buffer)
 {
 #ifdef DEBUG
-    board_uart_init();
     printf("Enter function: Verify().\r\n");
     printf("address = 0x%08lX.\r\n", address);
     printf("size = 0x%08lX.\r\n", size);
@@ -148,7 +145,6 @@ unsigned long Verify(unsigned long address, unsigned long size,
                                        (uint8_t *)buffer);
 
 #ifdef DEBUG
-    board_uart_init();
     printf("Exit function: Verify(). ");
     printf("Return address = 0x%08X.\r\n", ret);
     printf("\r\n");
