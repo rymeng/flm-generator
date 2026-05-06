@@ -9,6 +9,7 @@ extern "C" {
 #include "rt32f7.h"
 
 extern void board_uart_init(void);
+extern void board_uart_deinit(void);
 
 #ifdef __cplusplus
 }
