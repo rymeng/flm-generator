@@ -6,7 +6,7 @@
 static void flash_latency_init(void);
 static void flash_latency_deinit(void);
 
-enum flash_latency user_application_flash_latency = FLASH_LATENCY_0_WAIT_STATE;
+enum flash_latency user_application_flash_latency;
 
 uint32_t __mem_region_init(uint32_t address, uint32_t function)
 {
@@ -348,6 +348,11 @@ uint32_t __mem_region_program(uint32_t address, uint32_t size, uint8_t *buffer)
         }
     } else if ((address >= SRAM1_BASE_ADDR) &&
                (address <= SRAM1_LAST_PROGRAM_UNIT_ADDR)) {
+        for (uint32_t i = 0UL; i < size; ++i) {
+            *(volatile uint8_t *)(address + i) = *(buffer + i);
+        }
+    } else if ((address >= SRAM2_BASE_ADDR) &&
+               (address <= SRAM2_LAST_PROGRAM_UNIT_ADDR)) {
         for (uint32_t i = 0UL; i < size; ++i) {
             *(volatile uint8_t *)(address + i) = *(buffer + i);
         }
