@@ -5,7 +5,6 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -28,8 +27,8 @@ extern "C" {
 #define SECTOR_DESCRIPTOR_MAX_NUMBER         (512U)
 #define SECTOR_DESCRIPTOR_LIST_END_SYMBOL    {0xFFFFFFFFUL, 0xFFFFFFFFUL}
 
-#define ALIGN(SIZE, BASE) \
-    (((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
+#define ALIGN(SIZE, BASE)                    (    \
+    ((SIZE) + (BASE) - 1UL) & ~((BASE) - 1U))
 
 struct mem_region_sector_descriptor
 {
