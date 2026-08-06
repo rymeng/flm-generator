@@ -3,17 +3,9 @@
 /* Import framework macros */
 #include "framework.h"
 
-static void flash_latency_init(void);
-static void flash_latency_deinit(void);
-
-enum flash_latency user_application_flash_latency;
-
 uint32_t __mem_region_init(uint32_t address, uint32_t function)
 {
     uint32_t ret = RESULT_OK;
-
-    /* Initialize flash latency */
-    flash_latency_init();
 
     if ((address >= FLASH_BANK1_MAIN_BLOCK_BASE_ADDR) &&
         (address <= FLASH_BANK1_MAIN_BLOCK_END_ADDR)) {
@@ -74,9 +66,6 @@ uint32_t __mem_region_deinit(uint32_t function)
             ret = RESULT_ERROR;
         }
     }
-
-    /* De-initialize flash latency */
-    flash_latency_deinit();
 
     return ret;
 }
@@ -373,94 +362,4 @@ uint32_t __mem_region_verify(uint32_t address, uint32_t size, uint8_t *buffer)
     }
 
     return address + size;
-}
-
-static void flash_latency_init(void)
-{
-    /* Get and save user application flash latency */
-    switch ((FLASH->ACR.reg & FLASH_ACR_LATENCY_Msk) >> FLASH_ACR_LATENCY_Pos) {
-        case 0x0UL: {
-            user_application_flash_latency = FLASH_LATENCY_0_WAIT_STATE;
-            break;
-        }
-        case 0x1UL: {
-            user_application_flash_latency = FLASH_LATENCY_1_WAIT_STATE;
-            break;
-        }
-        case 0x2UL: {
-            user_application_flash_latency = FLASH_LATENCY_2_WAIT_STATE;
-            break;
-        }
-        case 0x3UL: {
-            user_application_flash_latency = FLASH_LATENCY_3_WAIT_STATE;
-            break;
-        }
-        case 0x4UL: {
-            user_application_flash_latency = FLASH_LATENCY_4_WAIT_STATE;
-            break;
-        }
-        default: {
-            user_application_flash_latency = FLASH_LATENCY_0_WAIT_STATE;
-            break;
-        }
-    }
-
-    /* Set flash latency: 4 wait state */
-    FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-    __DSB();
-    FLASH->ACR.reg |= 0x4UL << FLASH_ACR_LATENCY_Pos;
-    __DSB();
-
-    return;
-}
-
-static void flash_latency_deinit(void)
-{
-    /* Restore user application flash latency */
-    switch (user_application_flash_latency) {
-        case FLASH_LATENCY_0_WAIT_STATE: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x0UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-        case FLASH_LATENCY_1_WAIT_STATE: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x1UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-        case FLASH_LATENCY_2_WAIT_STATE: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x2UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-        case FLASH_LATENCY_3_WAIT_STATE: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x3UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-        case FLASH_LATENCY_4_WAIT_STATE: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x4UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-        default: {
-            FLASH->ACR.reg &= ~FLASH_ACR_LATENCY_Msk;
-            __DSB();
-            FLASH->ACR.reg |= 0x0UL << FLASH_ACR_LATENCY_Pos;
-            __DSB();
-            break;
-        }
-    }
-
-    return;
 }
