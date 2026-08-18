@@ -397,12 +397,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>drivers/bsp</GroupName>
+          <GroupName>lib/bsp</GroupName>
           <Files>
             <File>
               <FileName>board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\drivers\bsp\src\board.c</FilePath>
+              <FilePath>..\..\lib\bsp\src\board.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -742,7 +742,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\application\include;..\..\drivers\bsp\include;..\..\drivers\cmsis\core\include;..\..\drivers\cmsis\device\include</IncludePath>
+              <IncludePath>..\..\application\include;..\..\lib\bsp\include;..\..\lib\cmsis\core\include;..\..\lib\cmsis\device\include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -799,12 +799,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>drivers/bsp</GroupName>
+          <GroupName>lib/bsp</GroupName>
           <Files>
             <File>
               <FileName>board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\drivers\bsp\src\board.c</FilePath>
+              <FilePath>..\..\lib\bsp\src\board.c</FilePath>
             </File>
           </Files>
         </Group>

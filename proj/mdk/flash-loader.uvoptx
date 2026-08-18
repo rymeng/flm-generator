@@ -350,7 +350,7 @@
   </Group>
 
   <Group>
-    <GroupName>drivers/bsp</GroupName>
+    <GroupName>lib/bsp</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -362,7 +362,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\drivers\bsp\src\board.c</PathWithFileName>
+      <PathWithFileName>..\..\lib\bsp\src\board.c</PathWithFileName>
       <FilenameWithoutPath>board.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
