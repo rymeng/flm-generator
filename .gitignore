@@ -1,0 +1,12 @@
+# IDE
+**/*.uvguix.*
+
+# Project
+**/*.axf
+**/*.d
+**/*.dep
+**/*.FLM
+**/*.htm
+**/*.lnp
+**/*.map
+**/*.o
